@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>声之命途 · 扒带作品集</title>
+  <meta name="description" content="四首扒带作品,以崩坏:星穹铁道角色之名。逐轨复刻,记录每一次听与做。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">跳到主要内容</a>
+
+  <!-- 入场覆盖层 -->
+  <div class="entry" id="entry">
+    <div class="entry-mark" aria-hidden="true"></div>
+    <p class="entry-title">声之命途</p>
+    <p class="entry-sub">四首扒带 · 以角色之名</p>
+    <button class="btn clip" id="entry-btn" type="button">点击启程</button>
+  </div>
+
+  <!-- 背景景深层 -->
+  <div class="bg-layer bg-stars" id="bg-stars" aria-hidden="true"></div>
+  <div class="bg-layer bg-nebula" id="bg-nebula" aria-hidden="true"></div>
+  <div class="bg-layer ambient" aria-hidden="true"></div>
+  <div class="bg-layer vignette" aria-hidden="true"></div>
+
+  <!-- 光标光晕(快慢双层拖尾) -->
+  <div class="cursor-glow" aria-hidden="true">
+    <div class="glow-a" id="glow-fast"></div>
+    <div class="glow-b" id="glow-slow"></div>
+  </div>
+
+  <!-- 导航 -->
+  <nav class="topnav" aria-label="主导航">
+    <a class="brand" href="#top">
+      <span class="diamond" aria-hidden="true"></span>声之命途
+    </a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">扒带作品集</div>
+        <h1 class="hero-title">声之<span class="gold">命途</span></h1>
+        <p class="hero-sub">四首歌曲的逐轨复刻。以四位角色之名,记录每一次听与做。</p>
+        <div>
+          <a class="btn clip" href="#roster">开始聆听</a>
+        </div>
+      </div>
+      <div class="hero-chars" aria-hidden="true">
+        <figure class="hero-char" data-char="xilian">
+          <div class="char-par">
+            <img src="assets/characters/web/xilian-vertical.png" alt="昔涟" fetchpriority="high">
+            <span class="char-tag">昔涟</span>
+          </div>
+        </figure>
+        <figure class="hero-char" data-char="shajin">
+          <div class="char-par">
+            <img src="assets/characters/web/shajin-vertical.png" alt="砂金" fetchpriority="high">
+            <span class="char-tag">砂金</span>
+          </div>
+        </figure>
+        <figure class="hero-char" data-char="changyeyue">
+          <div class="char-par">
+            <img src="assets/characters/web/changyeyue-vertical.png" alt="长夜月" loading="lazy">
+            <span class="char-tag">长夜月</span>
+          </div>
+        </figure>
+        <figure class="hero-char" data-char="yaoguang">
+          <div class="char-par">
+            <img src="assets/characters/web/yaoguang-vertical.png" alt="爻光" loading="lazy">
+            <span class="char-tag">爻光</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 角色目录 -->
+    <section class="roster" id="roster">
+      <div class="sec-head rv">
+        <h2 class="sec-title"><span class="diamond" aria-hidden="true"></span>角色目录</h2>
+        <p class="sec-sub">选择一位角色,进入对应的作品档案。</p>
+      </div>
+      <div class="roster-grid rv" data-delay="1" id="roster-grid"></div>
+    </section>
+
+    <!-- 详情(JS 渲染) -->
+    <div id="details"></div>
+
+    <!-- 关于 -->
+    <section class="about" id="about">
+      <div class="sec-head rv">
+        <h2 class="sec-title"><span class="diamond" aria-hidden="true"></span>关于</h2>
+      </div>
+      <div class="gold-frame clip rv" data-delay="1">
+        <div class="frame-body about-panel">
+          <div>
+            <h3><span class="diamond" aria-hidden="true"></span>扒带这件事</h3>
+            <p>我在 Cubase 里逐轨复刻喜欢的歌。扒带是练耳的方式:把一首歌拆成鼓、贝斯、键盘、人声,再一轨一轨拼回来。</p>
+            <p>R&amp;B 与 Bossa Nova 是最常听的风格。这个页面里的四首,是最近比较满意的作品。</p>
+          </div>
+          <div>
+            <h3><span class="diamond" aria-hidden="true"></span>工具与联系</h3>
+            <ul class="tool-list">
+              <li>Cubase</li>
+              <li>扒带</li>
+              <li>编曲</li>
+              <li>混音</li>
+              <li>练耳</li>
+            </ul>
+            <p style="margin-top:16px">联系方式待填写</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="f-brand">声之命途</span>
+      <span>页面角色美术素材版权归上海米哈游网络科技股份有限公司所有,仅作个人作品集装饰使用。扒带作品为学习用途,不用于商业。</span>
+      <span>邮箱 / 微信(待填)</span>
+    </div>
+  </footer>
+
+  <noscript>本页面需要启用 JavaScript 才能展示作品内容。</noscript>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
