@@ -251,6 +251,7 @@
       s.style.setProperty("--ddur", dur.toFixed(1) + "s");
       s.style.setProperty("--ddelay", (Math.random() * opts.dur[1]).toFixed(1) + "s");
       s.style.setProperty("--dsway", (Math.random() * 40 - 20).toFixed(0) + "px");
+      if (opts.rot) s.style.setProperty("--frot", (Math.random() * opts.rot).toFixed(0) + "deg");
       if (opts.palette) s.style.background = opts.palette[i % opts.palette.length];
       frag.appendChild(s);
     }
@@ -422,12 +423,8 @@
     buildDetails();
     buildRain();
     injectAmbient(".detail--a .gold-dust", 22, "", { size: [3, 7], dur: [7, 14] });
-    injectAmbient(".detail--c .feathers", 5, "", {
-      x: 90, y: 90, size: [70, 150], dur: [14, 22],
-      palette: [
-        "radial-gradient(circle at 40% 38%, rgba(255,255,255,.55), rgba(47,184,160,.32) 32%, rgba(47,184,160,.1) 58%, transparent 72%)",
-        "radial-gradient(circle at 40% 38%, rgba(255,255,255,.5), rgba(201,168,106,.32) 32%, rgba(201,168,106,.1) 58%, transparent 72%)"
-      ]
+    injectAmbient(".detail--c .feathers", 4, "", {
+      x: 90, y: 90, size: [100, 190], dur: [16, 24], rot: 360
     });
     injectAmbient(".detail--d .star-motes", 20, "", {
       size: [3, 6], dur: [9, 18],

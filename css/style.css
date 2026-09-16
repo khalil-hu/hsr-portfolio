@@ -893,14 +893,15 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   margin-right: 12px;
   vertical-align: 2px;
 }
-/* 真正的月亮:悬于夜空的冰白圆月 */
+/* 真正的月亮:压暗的灰蓝圆月,不抢内容 */
 .detail--b .moon-big {
   position: absolute;
   right: 9%; top: 13%;
   width: clamp(90px, 10vw, 150px); height: clamp(90px, 10vw, 150px);
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 34%, #f7f9ff, #d6e0f4 52%, #a8b8dc 100%);
-  box-shadow: 0 0 50px rgba(214, 224, 244, 0.4), 0 0 130px rgba(214, 224, 244, 0.18);
+  background: radial-gradient(circle at 38% 34%, #cdd7ea, #8fa0c2 52%, #5b6a8c 100%);
+  opacity: 0.5;
+  box-shadow: 0 0 22px rgba(150, 170, 210, 0.22), 0 0 56px rgba(150, 170, 210, 0.1);
   z-index: 1;
 }
 /* 雨丝(JS 注入,reduced-motion 下自动静止) */
@@ -996,7 +997,7 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   box-shadow: 0 0 14px rgba(47, 184, 160, 0.7);
 }
 @keyframes spin-slow { to { transform: rotate(360deg); } }
-/* 爻光:孔雀翎光斑 */
+/* 爻光:真实的孔雀羽毛缓缓飘旋 */
 .detail--c .feathers {
   position: absolute;
   inset: 0;
@@ -1006,16 +1007,16 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
 }
 .detail--c .feathers i {
   position: absolute;
-  width: var(--dw, 90px); height: var(--dw, 90px);
-  border-radius: 50%;
-  filter: blur(2px);
-  opacity: 0.35;
+  width: var(--dw, 110px); height: var(--dw, 110px);
+  background: url("../assets/characters/web/peacock-feather.png") center / contain no-repeat;
+  filter: blur(0.8px);
+  opacity: 0.42;
   animation: feather-drift var(--ddur, 18s) ease-in-out infinite alternate;
   animation-delay: var(--ddelay, 0s);
 }
 @keyframes feather-drift {
-  from { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0.25; }
-  to   { transform: translate3d(var(--dsway, 30px), -26px, 0) scale(1.06); opacity: 0.6; }
+  from { transform: translate3d(0, 0, 0) rotate(var(--frot, 0deg)) scale(0.92); opacity: 0.3; }
+  to   { transform: translate3d(var(--dsway, 30px), -26px, 0) rotate(calc(var(--frot, 0deg) + 10deg)) scale(1.04); opacity: 0.62; }
 }
 
 /* D 布局:三栏三联画(昔涟) */
