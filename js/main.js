@@ -249,8 +249,14 @@
       s.style.setProperty("--dw", size.toFixed(1) + "px");
       const dur = opts.dur[0] + Math.random() * (opts.dur[1] - opts.dur[0]);
       s.style.setProperty("--ddur", dur.toFixed(1) + "s");
-      s.style.setProperty("--ddelay", (Math.random() * opts.dur[1]).toFixed(1) + "s");
+      s.style.setProperty(
+        "--ddelay",
+        opts.negDelay
+          ? "-" + (Math.random() * dur).toFixed(1) + "s"   // 负延迟:加载即散落在下落途中
+          : (Math.random() * opts.dur[1]).toFixed(1) + "s"
+      );
       s.style.setProperty("--dsway", (Math.random() * 40 - 20).toFixed(0) + "px");
+      if (opts.sway) s.style.setProperty("--fsway", (opts.sway[0] + Math.random() * (opts.sway[1] - opts.sway[0])).toFixed(0) + "px");
       if (opts.rot) s.style.setProperty("--frot", (Math.random() * opts.rot).toFixed(0) + "deg");
       if (opts.palette) s.style.background = opts.palette[i % opts.palette.length];
       frag.appendChild(s);
@@ -423,8 +429,8 @@
     buildDetails();
     buildRain();
     injectAmbient(".detail--a .gold-dust", 22, "", { size: [3, 7], dur: [7, 14] });
-    injectAmbient(".detail--c .feathers", 4, "", {
-      x: 90, y: 90, size: [100, 190], dur: [16, 24], rot: 360
+    injectAmbient(".detail--c .feathers", 5, "", {
+      x: 100, size: [90, 170], dur: [12, 18], rot: 360, sway: [30, 80], negDelay: true
     });
     injectAmbient(".detail--d .star-motes", 20, "", {
       size: [3, 6], dur: [9, 18],
