@@ -561,26 +561,6 @@ body:not(.entered) { overflow: hidden; }
   color: var(--text);
   text-shadow: 0 6px 40px rgba(0, 0, 0, 0.6);
 }
-/* 角色名轮播:概念"以角色之名"的视觉化 */
-.hero-namecycle {
-  margin: 20px 0 26px;
-  font-family: var(--font-display);
-  font-size: clamp(19px, 2.3vw, 28px);
-  letter-spacing: 0.22em;
-  color: var(--text-dim);
-}
-.hero-namecycle .cycle-name {
-  display: inline-block;
-  min-width: 2.4em;
-  text-align: center;
-  letter-spacing: 0.16em;
-  color: var(--gold-bright);
-}
-.cycle-name.swap { animation: name-swap 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes name-swap {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 .hero-sub {
   margin: 0 0 36px;
   color: var(--text-dim);
@@ -656,7 +636,6 @@ body.entered .hero-copy > *:nth-child(1) { animation-delay: 0.1s; }
 body.entered .hero-copy > *:nth-child(2) { animation-delay: 0.22s; }
 body.entered .hero-copy > *:nth-child(3) { animation-delay: 0.34s; }
 body.entered .hero-copy > *:nth-child(4) { animation-delay: 0.46s; }
-body.entered .hero-copy > *:nth-child(5) { animation-delay: 0.58s; }
 .hero-char {
   opacity: 0;
   transform: translateY(40px) rotate(var(--rot, 0deg));
@@ -841,16 +820,52 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   z-index: 2;
 }
 .detail--a > div:last-child { position: relative; }
-.detail--a .suit-field {
+/* 砂金:升起的金尘(赌桌的光,与长夜月的雨一升一落) */
+.detail--a .gold-dust {
   position: absolute;
-  font-family: var(--font-num);
-  font-size: 130px;
-  line-height: 1;
-  color: var(--accent, #46c894);
-  opacity: 0.09;
-  right: -10px; top: -40px;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
   z-index: 0;
+}
+.detail--a .gold-dust i {
+  position: absolute;
+  bottom: -4vh;
+  width: var(--dw, 5px); height: var(--dw, 5px);
+  border-radius: 50%;
+  background: radial-gradient(circle, #f4e3b2, rgba(201, 168, 106, 0.5) 62%, transparent);
+  box-shadow: 0 0 8px rgba(232, 207, 150, 0.45);
+  animation: dust-rise var(--ddur, 10s) linear infinite;
+  animation-delay: var(--ddelay, 0s);
+}
+@keyframes dust-rise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  12%  { opacity: 0.85; }
+  75%  { opacity: 0.45; }
+  100% { transform: translate3d(var(--dsway, 12px), -92vh, 0) scale(1); opacity: 0; }
+}
+/* 砂金:右侧花色浮游阵列 */
+.detail--a .suit-strip {
+  position: absolute;
+  right: -6px; top: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vh, 48px);
+  font-family: var(--font-num);
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1;
+  color: var(--accent, #46c894);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+.detail--a .suit-strip span { animation: suit-float 7s ease-in-out infinite; }
+.detail--a .suit-strip span:nth-child(2) { animation-delay: 1.2s; }
+.detail--a .suit-strip span:nth-child(3) { animation-delay: 2.4s; }
+.detail--a .suit-strip span:nth-child(4) { animation-delay: 3.6s; }
+@keyframes suit-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(6deg); }
 }
 
 /* B 布局:全景海报(长夜月) */
@@ -964,6 +979,61 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   opacity: 0.8;
 }
 .detail--c .tri-field i:nth-child(2) { width: 14px; margin-left: 4px; }
+/* 爻光:观星仪,极慢旋转,菱形指针巡行 */
+.detail--c .astrolabe {
+  position: absolute;
+  width: clamp(260px, 30vw, 460px);
+  aspect-ratio: 1;
+  border: 1px solid var(--gold-faint);
+  border-radius: 50%;
+  right: -4%; top: 4%;
+  z-index: 0;
+  pointer-events: none;
+  animation: spin-slow 140s linear infinite;
+}
+.detail--c .astrolabe::before {
+  content: "";
+  position: absolute; inset: 12%;
+  border: 1px dashed rgba(201, 168, 106, 0.18);
+  border-radius: 50%;
+}
+.detail--c .astrolabe::after {
+  content: "";
+  position: absolute; inset: 30%;
+  border: 1px solid rgba(47, 184, 160, 0.15);
+  border-radius: 50%;
+}
+.detail--c .astrolabe i {
+  position: absolute;
+  left: 50%; top: -5px;
+  width: 9px; height: 9px;
+  margin-left: -4.5px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  box-shadow: 0 0 14px rgba(47, 184, 160, 0.7);
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+/* 爻光:孔雀翎光斑 */
+.detail--c .feathers {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.detail--c .feathers i {
+  position: absolute;
+  width: var(--dw, 90px); height: var(--dw, 90px);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.35;
+  animation: feather-drift var(--ddur, 18s) ease-in-out infinite alternate;
+  animation-delay: var(--ddelay, 0s);
+}
+@keyframes feather-drift {
+  from { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0.25; }
+  to   { transform: translate3d(var(--dsway, 30px), -26px, 0) scale(1.06); opacity: 0.6; }
+}
 
 /* D 布局:三栏三联画(昔涟) */
 .detail--d { max-width: none; }
@@ -1004,10 +1074,50 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   border: 1px solid rgba(240, 168, 200, 0.12);
   border-radius: 50%;
   pointer-events: none;
+  animation: ripple-breathe 9s ease-in-out infinite;
 }
 .detail--d .ripple.r1 { width: 380px; height: 380px; }
-.detail--d .ripple.r2 { width: 560px; height: 560px; }
-.detail--d .ripple.r3 { width: 760px; height: 760px; border-color: rgba(143, 195, 240, 0.08); }
+.detail--d .ripple.r2 { width: 560px; height: 560px; animation-delay: 1.5s; }
+.detail--d .ripple.r3 { width: 760px; height: 760px; border-color: rgba(143, 195, 240, 0.08); animation-delay: 3s; }
+@keyframes ripple-breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50%      { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+}
+/* 昔涟:周期性扩散的波纹(记忆之石落入水面) */
+.detail--d .wave {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60px; height: 60px;
+  margin: -30px 0 0 -30px;
+  border: 1px solid rgba(240, 168, 200, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: wave-expand 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.detail--d .wave.w2 { animation-delay: 2.3s; }
+.detail--d .wave.w3 { animation-delay: 4.6s; }
+@keyframes wave-expand {
+  0%   { transform: scale(0.3); opacity: 0; }
+  15%  { opacity: 0.9; }
+  100% { transform: scale(9); opacity: 0; }
+}
+/* 昔涟:上浮的粉蓝星芒 */
+.detail--d .star-motes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.detail--d .star-motes i {
+  position: absolute;
+  bottom: -4vh;
+  width: var(--dw, 5px); height: var(--dw, 5px);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(240, 168, 200, 0.5);
+  animation: dust-rise var(--ddur, 12s) linear infinite;
+  animation-delay: var(--ddelay, 0s);
+}
 
 /* ---------- 9. 关于 ---------- */
 .about {

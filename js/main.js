@@ -119,11 +119,12 @@
     const [a, b, c, d] = TRACKS;
     host.innerHTML = `
       <section class="detail detail--a" id="char-${a.id}" data-char="${a.id}" data-wm="${a.char}">
+        <div class="gold-dust" aria-hidden="true"></div>
+        <div class="suit-strip" aria-hidden="true"><span>♠</span><span>♥</span><span>♦</span><span>♣</span></div>
         <div class="sticky-col">
           ${portraitPanel(a, `assets/characters/web/${a.id}-portrait.png`, "01")}
         </div>
         <div>
-          <div class="suit-field" aria-hidden="true">♠</div>
           <div class="rv">${charHead(a)}</div>
           <div class="rv">${statGrid(a.song, "stat-grid")}</div>
           <div class="rv">${videoBlock(a)}</div>
@@ -151,6 +152,8 @@
       </section>
 
       <section class="detail detail--c" id="char-${c.id}" data-char="${c.id}" data-wm="${c.char}">
+        <div class="astrolabe" aria-hidden="true"><i></i></div>
+        <div class="feathers" aria-hidden="true"></div>
         <div class="rv">${charHead(c, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
         <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
         <div class="c-body">
@@ -165,6 +168,7 @@
       </section>
 
       <section class="detail detail--d" id="char-${d.id}" data-char="${d.id}" data-wm="${d.char}">
+        <div class="star-motes" aria-hidden="true"></div>
         <div class="d-head rv">
           ${charHead(d, "")}
         </div>
@@ -180,6 +184,9 @@
             </div>
           </div>
           <div class="rv" style="position:relative">
+            <div class="wave" aria-hidden="true"></div>
+            <div class="wave w2" aria-hidden="true"></div>
+            <div class="wave w3" aria-hidden="true"></div>
             <div class="ripple r1" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
             <div class="ripple r2" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
             <div class="ripple r3" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
@@ -229,20 +236,27 @@
     wrap.appendChild(frag);
   }
 
-  /* ---------- 开场角色名轮播 ---------- */
+  /* ---------- 章节氛围粒子(砂金金尘/爻光孔雀斑/昔涟星芒) ---------- */
 
-  function initNameCycle() {
-    const el = document.getElementById("cycle-name");
-    if (!el || REDUCED) return;
-    let i = 0;
-    setInterval(() => {
-      i = (i + 1) % TRACKS.length;
-      el.textContent = TRACKS[i].char;
-      el.style.color = TRACKS[i].accent;
-      el.classList.remove("swap");
-      void el.offsetWidth;   // 强制重排以重启动画
-      el.classList.add("swap");
-    }, 2600);
+  function injectAmbient(selector, count, cls, opts) {
+    const wrap = document.querySelector(selector);
+    if (!wrap || REDUCED) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("i");
+      s.className = cls;
+      s.style.left = (Math.random() * (opts.x || 100)).toFixed(1) + "%";
+      if (opts.y) s.style.top = (Math.random() * opts.y).toFixed(1) + "%";
+      const size = opts.size[0] + Math.random() * (opts.size[1] - opts.size[0]);
+      s.style.setProperty("--dw", size.toFixed(1) + "px");
+      const dur = opts.dur[0] + Math.random() * (opts.dur[1] - opts.dur[0]);
+      s.style.setProperty("--ddur", dur.toFixed(1) + "s");
+      s.style.setProperty("--ddelay", (Math.random() * opts.dur[1]).toFixed(1) + "s");
+      s.style.setProperty("--dsway", (Math.random() * 40 - 20).toFixed(0) + "px");
+      if (opts.palette) s.style.background = opts.palette[i % opts.palette.length];
+      frag.appendChild(s);
+    }
+    wrap.appendChild(frag);
   }
 
   /* ---------- 视频缺失检测 ---------- */
@@ -409,7 +423,21 @@
     buildRoster();
     buildDetails();
     buildRain();
-    initNameCycle();
+    injectAmbient(".detail--a .gold-dust", 22, "", { size: [3, 7], dur: [7, 14] });
+    injectAmbient(".detail--c .feathers", 5, "", {
+      x: 90, y: 90, size: [70, 150], dur: [14, 22],
+      palette: [
+        "radial-gradient(circle at 40% 38%, rgba(255,255,255,.55), rgba(47,184,160,.32) 32%, rgba(47,184,160,.1) 58%, transparent 72%)",
+        "radial-gradient(circle at 40% 38%, rgba(255,255,255,.5), rgba(201,168,106,.32) 32%, rgba(201,168,106,.1) 58%, transparent 72%)"
+      ]
+    });
+    injectAmbient(".detail--d .star-motes", 20, "", {
+      size: [3, 6], dur: [9, 18],
+      palette: [
+        "radial-gradient(circle, #ffe6f2, rgba(240,168,200,.55) 60%, transparent)",
+        "radial-gradient(circle, #eaf4ff, rgba(143,195,240,.55) 60%, transparent)"
+      ]
+    });
     watchVideos();
     observeSections();
     initPointer();
