@@ -74,21 +74,6 @@
       </div>`;
   }
 
-  function portraitPanel(t, img, caption) {
-    return `
-      <div class="portrait-panel gold-frame clip" data-tilt>
-        <span class="corner tl"></span><span class="corner tr"></span>
-        <span class="corner bl"></span><span class="corner br"></span>
-        <div class="frame-body">
-          <img src="${img}" alt="${t.char} 立绘" loading="lazy">
-          <div class="p-caption">
-            <span>命途:${t.path} · 属性:${t.element}</span>
-            <span class="acc">${caption}</span>
-          </div>
-        </div>
-      </div>`;
-  }
-
   function buildNav() {
     const links = document.getElementById("nav-links");
     links.innerHTML =
@@ -119,26 +104,33 @@
     const [a, b, c, d] = TRACKS;
     host.innerHTML = `
       <section class="detail detail--a" id="char-${a.id}" data-char="${a.id}" data-wm="${a.char}">
-        <div class="gold-dust" aria-hidden="true"></div>
-        <div class="suit-strip" aria-hidden="true"><span>♠</span><span>♥</span><span>♦</span><span>♣</span></div>
-        <div class="sticky-col">
-          ${portraitPanel(a, `assets/characters/web/${a.id}-portrait.png`, "01")}
-        </div>
-        <div>
-          <div class="rv">${charHead(a)}</div>
-          <div class="rv">${statGrid(a.song, "stat-grid")}</div>
-          <div class="rv">${videoBlock(a)}</div>
-          <div class="rv">${notesBlock(a)}</div>
+        <div class="cover">
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${a.id}-landscape.png')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
+          <div class="cover-shade"></div>
+          <div class="gold-dust" aria-hidden="true"></div>
+          <div class="suit-strip" aria-hidden="true"><span>♠</span><span>♥</span><span>♦</span><span>♣</span></div>
+          <div class="cover-inner">
+            <div>
+              <div class="rv">${charHead(a)}</div>
+              <div class="rv">${notesBlock(a)}</div>
+            </div>
+            <div>
+              <div class="rv">${statGrid(a.song, "stat-grid")}</div>
+              <div class="rv">${videoBlock(a)}</div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="detail detail--b" id="char-${b.id}" data-char="${b.id}" data-wm="${b.char}">
-        <div class="b-cover">
+        <div class="cover">
           <div class="cover-bg" style="background-image:url('assets/characters/web/${b.id}-landscape.png')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="moon-big" aria-hidden="true"></div>
           <div class="rain" aria-hidden="true"></div>
-          <div class="b-inner">
+          <div class="cover-inner">
             <div>
               <div class="rv">${charHead(b, "", false)}</div>
               <div class="rv">${notesBlock(b)}</div>
@@ -152,49 +144,55 @@
       </section>
 
       <section class="detail detail--c" id="char-${c.id}" data-char="${c.id}" data-wm="${c.char}">
-        <div class="astrolabe" aria-hidden="true"><i></i></div>
-        <div class="feathers" aria-hidden="true"></div>
-        <div class="rv">${charHead(c, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
-        <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
-        <div class="c-body">
-          <div>
-            <div class="rv">${videoBlock(c)}</div>
-            <div class="rv">${notesBlock(c)}</div>
-          </div>
-          <div class="rv">
-            ${portraitPanel(c, `assets/characters/web/${c.id}-vertical.png`, "03")}
+        <div class="cover">
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${c.id}-landscape.png')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
+          <div class="cover-shade"></div>
+          <div class="astrolabe" aria-hidden="true"><i></i></div>
+          <div class="feathers" aria-hidden="true"></div>
+          <div class="cover-inner">
+            <div class="rv">${charHead(c, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
+            <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
+            <div class="c-body">
+              <div>
+                <div class="rv">${videoBlock(c)}</div>
+              </div>
+              <div>
+                <div class="rv">${notesBlock(c)}</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="detail detail--d" id="char-${d.id}" data-char="${d.id}" data-wm="${d.char}">
-        <div class="star-motes" aria-hidden="true"></div>
-        <div class="d-head rv">
-          ${charHead(d, "")}
-        </div>
-        <div class="d-triptych">
-          <div class="rv">
-            <div class="d-stat-tiles">
-              ${statItems(d.song)
-                .map(
-                  ([k, v]) =>
-                    `<div class="stat"><dt>${k}</dt><dd>${v}</dd></div>`
-                )
-                .join("")}
+        <div class="cover">
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${d.id}-landscape.png')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
+          <div class="cover-shade"></div>
+          <div class="star-motes" aria-hidden="true"></div>
+          <div class="wave" aria-hidden="true"></div>
+          <div class="wave w2" aria-hidden="true"></div>
+          <div class="wave w3" aria-hidden="true"></div>
+          <div class="ripple r1" aria-hidden="true"></div>
+          <div class="ripple r2" aria-hidden="true"></div>
+          <div class="ripple r3" aria-hidden="true"></div>
+          <div class="cover-inner">
+            <div class="d-head rv">${charHead(d, "")}</div>
+            <div class="d-triptych">
+              <div class="rv">
+                <div class="d-stat-tiles">
+                  ${statItems(d.song)
+                    .map(
+                      ([k, v]) =>
+                        `<div class="stat"><dt>${k}</dt><dd>${v}</dd></div>`
+                    )
+                    .join("")}
+                </div>
+              </div>
+              <div class="rv">${videoBlock(d)}</div>
+              <div class="rv">${notesBlock(d)}</div>
             </div>
-          </div>
-          <div class="rv" style="position:relative">
-            <div class="wave" aria-hidden="true"></div>
-            <div class="wave w2" aria-hidden="true"></div>
-            <div class="wave w3" aria-hidden="true"></div>
-            <div class="ripple r1" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
-            <div class="ripple r2" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
-            <div class="ripple r3" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
-            ${portraitPanel(d, `assets/characters/web/${d.id}-portrait.png`, "04")}
-          </div>
-          <div>
-            <div class="rv">${videoBlock(d)}</div>
-            <div class="rv">${notesBlock(d)}</div>
           </div>
         </div>
       </section>`;
