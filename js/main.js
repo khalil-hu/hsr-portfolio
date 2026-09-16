@@ -104,6 +104,7 @@
       <a class="char-card clip" href="#char-${t.id}" data-char="${t.id}" style="--cc:${t.accent}">
         <img src="assets/characters/web/${t.id}-portrait.png" alt="${t.char} 立绘" loading="lazy">
         <div class="card-scrim"></div>
+        <p class="card-quote">${t.quote}</p>
         <div class="card-info">
           <span class="card-path">${t.path} · ${t.element}</span>
           <h3 class="card-name">${t.char}</h3>
@@ -125,8 +126,8 @@
           <div class="suit-field" aria-hidden="true">♠</div>
           <div class="rv">${charHead(a)}</div>
           <div class="rv">${statGrid(a.song, "stat-grid")}</div>
-          <div class="rv" data-delay="1">${videoBlock(a)}</div>
-          <div class="rv" data-delay="2">${notesBlock(a)}</div>
+          <div class="rv">${videoBlock(a)}</div>
+          <div class="rv">${notesBlock(a)}</div>
         </div>
       </section>
 
@@ -134,14 +135,16 @@
         <div class="b-cover">
           <div class="cover-bg" style="background-image:url('assets/characters/web/${b.id}-landscape.png')"></div>
           <div class="cover-shade"></div>
+          <div class="moon-big" aria-hidden="true"></div>
+          <div class="rain" aria-hidden="true"></div>
           <div class="b-inner">
             <div>
-              <div class="rv">${charHead(b, "", true)}</div>
-              <div class="rv" data-delay="1">${notesBlock(b)}</div>
+              <div class="rv">${charHead(b, "", false)}</div>
+              <div class="rv">${notesBlock(b)}</div>
             </div>
             <div>
               <div class="rv">${statGrid(b.song, "stat-grid")}</div>
-              <div class="rv" data-delay="1">${videoBlock(b)}</div>
+              <div class="rv">${videoBlock(b)}</div>
             </div>
           </div>
         </div>
@@ -152,10 +155,10 @@
         <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
         <div class="c-body">
           <div>
-            <div class="rv" data-delay="1">${videoBlock(c)}</div>
-            <div class="rv" data-delay="2">${notesBlock(c)}</div>
+            <div class="rv">${videoBlock(c)}</div>
+            <div class="rv">${notesBlock(c)}</div>
           </div>
-          <div class="rv" data-delay="1">
+          <div class="rv">
             ${portraitPanel(c, `assets/characters/web/${c.id}-vertical.png`, "03")}
           </div>
         </div>
@@ -176,15 +179,15 @@
                 .join("")}
             </div>
           </div>
-          <div class="rv" data-delay="1" style="position:relative">
+          <div class="rv" style="position:relative">
             <div class="ripple r1" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
             <div class="ripple r2" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
             <div class="ripple r3" style="left:50%;top:50%;transform:translate(-50%,-50%)" aria-hidden="true"></div>
             ${portraitPanel(d, `assets/characters/web/${d.id}-portrait.png`, "04")}
           </div>
           <div>
-            <div class="rv" data-delay="1">${videoBlock(d)}</div>
-            <div class="rv" data-delay="2">${notesBlock(d)}</div>
+            <div class="rv">${videoBlock(d)}</div>
+            <div class="rv">${notesBlock(d)}</div>
           </div>
         </div>
       </section>`;
@@ -195,17 +198,51 @@
   function buildStars() {
     const layer = document.getElementById("bg-stars");
     const frag = document.createDocumentFragment();
-    for (let i = 0; i < 110; i++) {
+    for (let i = 0; i < 45; i++) {   // 收敛:数量减半,闪烁更缓
       const s = document.createElement("span");
       s.className = "star" + (i % 9 === 0 ? " tint" : "");
       s.style.left = Math.random() * 100 + "%";
       s.style.top = Math.random() * 100 + "%";
       s.style.width = s.style.height = (Math.random() * 1.6 + 0.8).toFixed(2) + "px";
-      s.style.setProperty("--tw-dur", (2 + Math.random() * 4).toFixed(1) + "s");
-      s.style.setProperty("--tw-delay", (Math.random() * 4).toFixed(1) + "s");
+      s.style.setProperty("--tw-dur", (3 + Math.random() * 4).toFixed(1) + "s");
+      s.style.setProperty("--tw-delay", (Math.random() * 5).toFixed(1) + "s");
       frag.appendChild(s);
     }
     layer.appendChild(frag);
+  }
+
+  /* ---------- 长夜月雨丝 ---------- */
+
+  function buildRain() {
+    if (REDUCED) return;
+    const wrap = document.querySelector(".detail--b .rain");
+    if (!wrap) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 36; i++) {
+      const s = document.createElement("i");
+      s.style.left = Math.random() * 100 + "%";
+      s.style.setProperty("--h", (34 + Math.random() * 46).toFixed(0) + "px");
+      s.style.setProperty("--rd", (1.5 + Math.random() * 1.4).toFixed(2) + "s");
+      s.style.setProperty("--rdelay", (Math.random() * 2.6).toFixed(2) + "s");
+      frag.appendChild(s);
+    }
+    wrap.appendChild(frag);
+  }
+
+  /* ---------- 开场角色名轮播 ---------- */
+
+  function initNameCycle() {
+    const el = document.getElementById("cycle-name");
+    if (!el || REDUCED) return;
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % TRACKS.length;
+      el.textContent = TRACKS[i].char;
+      el.style.color = TRACKS[i].accent;
+      el.classList.remove("swap");
+      void el.offsetWidth;   // 强制重排以重启动画
+      el.classList.add("swap");
+    }, 2600);
   }
 
   /* ---------- 视频缺失检测 ---------- */
@@ -271,6 +308,17 @@
     document
       .querySelectorAll("main > section, section.detail")
       .forEach((sec) => secObs.observe(sec));
+
+    // 光标光晕只属于开场:滚出英雄区后淡出
+    const hero = document.getElementById("top");
+    if (hero) {
+      new IntersectionObserver(
+        (entries) => {
+          document.body.classList.toggle("past-hero", !entries[0].isIntersecting);
+        },
+        { threshold: 0.02 }
+      ).observe(hero);
+    }
   }
 
   /* ---------- 鼠标跟随与视差 ---------- */
@@ -346,11 +394,11 @@
   /* ---------- 入场 ---------- */
 
   function initEntry() {
+    const enter = () => document.body.classList.add("entered");
     const btn = document.getElementById("entry-btn");
-    if (!btn) return;
-    btn.addEventListener("click", () => {
-      document.body.classList.add("entered");
-    });
+    const overlay = document.getElementById("entry");
+    if (btn) btn.addEventListener("click", enter);
+    if (overlay) overlay.addEventListener("click", enter);  // 点击任意处启程
   }
 
   /* ---------- 启动 ---------- */
@@ -360,6 +408,8 @@
     buildNav();
     buildRoster();
     buildDetails();
+    buildRain();
+    initNameCycle();
     watchVideos();
     observeSections();
     initPointer();

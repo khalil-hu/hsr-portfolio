@@ -16,7 +16,7 @@
     <div class="entry-mark" aria-hidden="true"></div>
     <p class="entry-title">声之命途</p>
     <p class="entry-sub">四首扒带 · 以角色之名</p>
-    <button class="btn clip" id="entry-btn" type="button">点击启程</button>
+    <button class="btn clip" id="entry-btn" type="button">点击任意处启程</button>
   </div>
 
   <!-- 背景景深层 -->
@@ -40,41 +40,30 @@
   </nav>
 
   <main>
-    <!-- Hero -->
+    <!-- Hero:单焦点电影感开场,角色退为背景氛围 -->
     <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <figure class="hero-char" data-char="xilian">
+          <div class="char-par"><img src="assets/characters/web/xilian-vertical.png" alt="" loading="lazy"></div>
+        </figure>
+        <figure class="hero-char" data-char="shajin">
+          <div class="char-par"><img src="assets/characters/web/shajin-vertical.png" alt="" fetchpriority="high"></div>
+        </figure>
+        <figure class="hero-char" data-char="changyeyue">
+          <div class="char-par"><img src="assets/characters/web/changyeyue-vertical.png" alt="" loading="lazy"></div>
+        </figure>
+        <figure class="hero-char" data-char="yaoguang">
+          <div class="char-par"><img src="assets/characters/web/yaoguang-vertical.png" alt="" loading="lazy"></div>
+        </figure>
+      </div>
       <div class="hero-copy">
         <div class="hero-eyebrow">扒带作品集</div>
-        <h1 class="hero-title">声之<span class="gold">命途</span></h1>
+        <h1 class="hero-title">声之命途</h1>
+        <p class="hero-namecycle">以 <span class="cycle-name" id="cycle-name">砂金</span> 之名</p>
         <p class="hero-sub">四首歌曲的逐轨复刻。以四位角色之名,记录每一次听与做。</p>
         <div>
           <a class="btn clip" href="#roster">开始聆听</a>
         </div>
-      </div>
-      <div class="hero-chars" aria-hidden="true">
-        <figure class="hero-char" data-char="xilian">
-          <div class="char-par">
-            <img src="assets/characters/web/xilian-vertical.png" alt="昔涟" fetchpriority="high">
-            <span class="char-tag">昔涟</span>
-          </div>
-        </figure>
-        <figure class="hero-char" data-char="shajin">
-          <div class="char-par">
-            <img src="assets/characters/web/shajin-vertical.png" alt="砂金" fetchpriority="high">
-            <span class="char-tag">砂金</span>
-          </div>
-        </figure>
-        <figure class="hero-char" data-char="changyeyue">
-          <div class="char-par">
-            <img src="assets/characters/web/changyeyue-vertical.png" alt="长夜月" loading="lazy">
-            <span class="char-tag">长夜月</span>
-          </div>
-        </figure>
-        <figure class="hero-char" data-char="yaoguang">
-          <div class="char-par">
-            <img src="assets/characters/web/yaoguang-vertical.png" alt="爻光" loading="lazy">
-            <span class="char-tag">爻光</span>
-          </div>
-        </figure>
       </div>
     </section>
 
