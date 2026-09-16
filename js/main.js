@@ -149,7 +149,7 @@
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="astrolabe" aria-hidden="true"><i></i></div>
-          <div class="feathers" aria-hidden="true"></div>
+          <div class="runes" aria-hidden="true"></div>
           <div class="cover-inner">
             <div class="rv">${charHead(c, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
             <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
@@ -243,8 +243,17 @@
     for (let i = 0; i < count; i++) {
       const s = document.createElement("i");
       s.className = cls;
-      s.style.left = (Math.random() * (opts.x || 100)).toFixed(1) + "%";
-      if (opts.y) s.style.top = (Math.random() * opts.y).toFixed(1) + "%";
+      if (opts.bands) {
+        // 等宽列带:每个元素占一条横向带,保证互不靠近
+        s.style.left = (((i + Math.random() * 0.7) / count) * 100).toFixed(1) + "%";
+      } else {
+        s.style.left = (Math.random() * (opts.x || 100)).toFixed(1) + "%";
+      }
+      if (opts.y) {
+        const yMin = Array.isArray(opts.y) ? opts.y[0] : 0;
+        const yMax = Array.isArray(opts.y) ? opts.y[1] : opts.y;
+        s.style.top = (yMin + Math.random() * (yMax - yMin)).toFixed(1) + "%";
+      }
       const size = opts.size[0] + Math.random() * (opts.size[1] - opts.size[0]);
       s.style.setProperty("--dw", size.toFixed(1) + "px");
       const dur = opts.dur[0] + Math.random() * (opts.dur[1] - opts.dur[0]);
@@ -429,8 +438,8 @@
     buildDetails();
     buildRain();
     injectAmbient(".detail--a .gold-dust", 22, "", { size: [3, 7], dur: [7, 14] });
-    injectAmbient(".detail--c .feathers", 5, "", {
-      x: 100, size: [90, 170], dur: [12, 18], rot: 360, sway: [30, 80], negDelay: true
+    injectAmbient(".detail--c .runes", 5, "", {
+      bands: true, y: [12, 72], size: [70, 120], dur: [8, 14], rot: 24, negDelay: true
     });
     injectAmbient(".detail--d .star-motes", 20, "", {
       size: [3, 6], dur: [9, 18],

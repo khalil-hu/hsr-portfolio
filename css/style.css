@@ -997,29 +997,30 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   box-shadow: 0 0 14px rgba(47, 184, 160, 0.7);
 }
 @keyframes spin-slow { to { transform: rotate(360deg); } }
-/* 爻光:孔雀羽毛从顶飘落,摇摆旋转,穿过整章 */
-.detail--c .feathers {
+/* 爻光:天赋符纹忽隐忽现,如卦象在星盘间明灭 */
+.detail--c .runes {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
 }
-.detail--c .feathers i {
+.detail--c .runes i {
   position: absolute;
-  top: -14vh;                       /* 从章节上方进入 */
-  width: var(--dw, 110px); height: var(--dw, 110px);
-  background: url("../assets/characters/web/peacock-feather.png") center / contain no-repeat;
-  filter: blur(0.8px);
-  animation: feather-fall var(--ddur, 15s) linear infinite;
+  width: var(--dw, 90px); height: var(--dw, 90px);
+  background: url("../assets/characters/web/yaoguang-talent.png") center / contain no-repeat;
+  mix-blend-mode: screen;
+  filter: blur(0.6px) drop-shadow(0 0 12px rgba(47, 184, 160, 0.35));
+  opacity: 0;                        /* 基础态隐藏,由动画接管明灭 */
+  animation: rune-breathe var(--ddur, 11s) ease-in-out infinite;
   animation-delay: var(--ddelay, 0s);
 }
-@keyframes feather-fall {
-  0%   { transform: translate3d(0, 0, 0) rotate(var(--frot, 0deg)); opacity: 0; }
-  8%   { opacity: 0.55; }
-  50%  { transform: translate3d(var(--fsway, 44px), 46vh, 0) rotate(calc(var(--frot, 0deg) + 160deg)); opacity: 0.45; }
-  92%  { opacity: 0.3; }
-  100% { transform: translate3d(calc(var(--fsway, 44px) * -0.6), 108vh, 0) rotate(calc(var(--frot, 0deg) + 330deg)); opacity: 0; }
+@keyframes rune-breathe {
+  0%, 100% { opacity: 0; transform: translate3d(0, 0, 0) rotate(var(--frot, 0deg)) scale(0.94); }
+  18%      { opacity: 0.55; }
+  46%      { opacity: 0.3; transform: translate3d(0, -12px, 0) rotate(calc(var(--frot, 0deg) + 10deg)) scale(1); }
+  72%      { opacity: 0.42; }
+  88%      { opacity: 0.08; }
 }
 
 /* D 布局:三栏三联画(昔涟) */
