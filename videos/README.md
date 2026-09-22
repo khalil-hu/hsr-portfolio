@@ -6,5 +6,6 @@
 - 02-changyeyue.mp4 长夜月
 - 03-yaoguang.mp4   爻光
 - 04-xilian.mp4     昔涟
+- 05-xilang.mp4     砂金·戏浪
 
 放入后刷新页面即可播放。视频未放入时,页面会显示"视频待放入"提示。

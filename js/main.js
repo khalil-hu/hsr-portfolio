@@ -101,7 +101,7 @@
 
   function buildDetails() {
     const host = document.getElementById("details");
-    const [a, b, c, d] = TRACKS;
+    const [a, b, c, d, e] = TRACKS;
     host.innerHTML = `
       <section class="detail detail--a" id="char-${a.id}" data-char="${a.id}" data-wm="${a.char}">
         <div class="cover">
@@ -192,6 +192,23 @@
               </div>
               <div class="rv">${videoBlock(d)}</div>
               <div class="rv">${notesBlock(d)}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail detail--e" id="char-${e.id}" data-char="${e.id}" data-wm="${e.char}">
+        <div class="cover">
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${e.id}-landscape.png')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
+          <div class="cover-shade"></div>
+          <div class="bubbles" aria-hidden="true"></div>
+          <div class="cover-inner">
+            <div class="e-head rv">${charHead(e, "")}</div>
+            <div class="rv">${videoBlock(e)}</div>
+            <div class="e-bottom">
+              <div class="rv">${statGrid(e.song, "stat-grid")}</div>
+              <div class="rv">${notesBlock(e)}</div>
             </div>
           </div>
         </div>
@@ -447,6 +464,9 @@
         "radial-gradient(circle, #ffe6f2, rgba(240,168,200,.55) 60%, transparent)",
         "radial-gradient(circle, #eaf4ff, rgba(143,195,240,.55) 60%, transparent)"
       ]
+    });
+    injectAmbient(".detail--e .bubbles", 18, "", {
+      x: 100, size: [8, 22], dur: [9, 16], negDelay: true
     });
     watchVideos();
     observeSections();

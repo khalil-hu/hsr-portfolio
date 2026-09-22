@@ -59,6 +59,7 @@ body[data-char="shajin"]      { --ambient: rgba(62, 178, 122, 0.10); }
 body[data-char="changyeyue"]  { --ambient: rgba(224, 74, 74, 0.09); }
 body[data-char="yaoguang"]    { --ambient: rgba(47, 184, 160, 0.09); }
 body[data-char="xilian"]      { --ambient: rgba(240, 168, 200, 0.09); }
+body[data-char="xilang"]      { --ambient: rgba(79, 171, 224, 0.09); }
 
 /* ---------- 1. 基础 ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -623,6 +624,12 @@ body:not(.entered) { overflow: hidden; }
   width: clamp(130px, 13vw, 210px);
   filter: blur(4.5px) brightness(0.28);
 }
+.hero-char[data-char="xilang"] {
+  --depth: 0.06; --rot: -3deg;
+  left: 45%; top: 52%; z-index: 1;
+  width: clamp(120px, 12vw, 190px);
+  filter: blur(4.5px) brightness(0.24);
+}
 
 /* 入场动画(由 body.entered 触发) */
 .hero-copy > * {
@@ -647,6 +654,7 @@ body.entered .hero-char:nth-of-type(1) { animation-delay: 0.35s; }
 body.entered .hero-char:nth-of-type(2) { animation-delay: 0.47s; }
 body.entered .hero-char:nth-of-type(3) { animation-delay: 0.59s; }
 body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
+body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
 @keyframes rise {
   to { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
 }
@@ -659,7 +667,7 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
 }
 .roster-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: clamp(14px, 2vw, 24px);
 }
 .char-card {
@@ -766,6 +774,7 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
 .detail[data-char="changyeyue"] { --accent: #e04a4a; }
 .detail[data-char="yaoguang"]   { --accent: #2fb8a0; }
 .detail[data-char="xilian"]     { --accent: #f0a8c8; }
+.detail[data-char="xilang"]     { --accent: #4fabe0; }
 
 /* 详情章节统一:全幅封面场景,内容浮于其上 */
 .detail--a, .detail--b, .detail--c, .detail--d { max-width: none; padding: 0; }
@@ -1103,6 +1112,41 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
   animation-delay: var(--ddelay, 0s);
 }
 
+/* E 布局:视频居首的宽银幕(砂金·戏浪) */
+.detail--e .cover-tint { background: radial-gradient(70% 85% at 50% 40%, rgba(79, 171, 224, 0.12), transparent 72%); }
+.detail--e .e-head { margin-bottom: clamp(28px, 4vw, 48px); }
+.detail--e .e-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+  margin-top: clamp(36px, 5vw, 60px);
+}
+/* 戏浪:气泡上升(浪花盛夏) */
+.detail--e .bubbles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.detail--e .bubbles i {
+  position: absolute;
+  bottom: -6vh;
+  width: var(--dw, 12px); height: var(--dw, 12px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.65), rgba(150, 210, 240, 0.32) 45%, rgba(120, 190, 230, 0.1) 70%, transparent);
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.3);
+  animation: bubble-rise var(--ddur, 11s) linear infinite;
+  animation-delay: var(--ddelay, 0s);
+}
+@keyframes bubble-rise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  10%  { opacity: 0.7; }
+  50%  { transform: translate3d(var(--dsway, 14px), -46vh, 0) scale(1); opacity: 0.5; }
+  100% { transform: translate3d(calc(var(--dsway, 14px) * -0.8), -95vh, 0) scale(1.15); opacity: 0; }
+}
+
 /* ---------- 9. 关于 ---------- */
 .about {
   max-width: var(--container);
@@ -1186,13 +1230,13 @@ body.entered .hero-char:nth-of-type(4) { animation-delay: 0.71s; }
 
 /* ---------- 12. 响应式 ---------- */
 @media (max-width: 1024px) {
-  .roster-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-grid .stat:nth-child(4n) { border-right: 1px solid var(--gold-faint); }
   .stat-grid .stat:nth-child(2n) { border-right: none; }
   .stat-grid .stat:nth-last-child(-n + 4) { border-bottom: 1px solid var(--gold-faint); }
   .stat-grid .stat:nth-last-child(-n + 2) { border-bottom: none; }
-  .detail--a .cover-inner, .detail--b .cover-inner, .detail--c .c-body {
+  .detail--a .cover-inner, .detail--b .cover-inner, .detail--c .c-body,
+  .detail--e .e-bottom {
     grid-template-columns: 1fr;
   }
   .detail--d .d-triptych { grid-template-columns: 1fr; }

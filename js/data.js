@@ -97,5 +97,26 @@ const TRACKS = [
     notes: [
       "这首的钢琴肢体很多算是我比较熟悉的，更多的是合成器的选择，原曲很多合成器的声音我猜是融入了人声，不过我算尽量复刻了，合成器就铺了19轨"
     ]
+  },
+  {
+    id: "xilang",
+    char: "砂金·戏浪",
+    path: "欢愉",
+    element: "量子",
+    accent: "#4fabe0",
+    quote: "「All in！敬炽烈一夏」",
+    song: {
+      title: "曲名待填",
+      artist: "原唱待填",
+      duration: "1:47",
+      tools: "Cubase",
+      date: "2026"
+    },
+    video: "videos/05-xilang.mp4",
+    poster: "assets/characters/web/xilang-landscape.png",
+    notes: [
+      "扒带手记待填写。可以写这首歌的难点:比如某个离调和弦花了多久听出来。",
+      "也可以写音色还原思路、律动拆解方法、混音上的处理。"
+    ]
   }
 ];
