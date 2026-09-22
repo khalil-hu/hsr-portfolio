@@ -106,8 +106,8 @@ const TRACKS = [
     accent: "#4fabe0",
     quote: "「All in！敬炽烈一夏」",
     song: {
-      title: "曲名待填",
-      artist: "原唱待填",
+      title: "独家爆料",
+      artist: "HoYo-Mix",
       duration: "1:47",
       tools: "Cubase",
       date: "2026"
@@ -115,8 +115,7 @@ const TRACKS = [
     video: "videos/05-xilang.mp4",
     poster: "assets/characters/web/xilang-landscape.png",
     notes: [
-      "扒带手记待填写。可以写这首歌的难点:比如某个离调和弦花了多久听出来。",
-      "也可以写音色还原思路、律动拆解方法、混音上的处理。"
+      "这首我主要学习了音频轨道的内容。鼓组我是用音频击点标记写的，跟着击点去标旋律的重音，比手打准很多。中间有段快速变奏，全是十六分和三十二分音符，单听根本抓不住，拆成轨道才看清走向。整首堆叠了许多音乐轨道，扒完之后我还混音了一点，丰满了听感。"
     ]
   }
 ];
