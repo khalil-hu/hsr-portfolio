@@ -199,7 +199,7 @@
 
       <section class="detail detail--e" id="char-${e.id}" data-char="${e.id}" data-wm="${e.char}">
         <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${e.id}-landscape.png')"></div>
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${e.id}-portrait.png')"></div>
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="bubbles" aria-hidden="true"></div>
