@@ -1112,12 +1112,18 @@ body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
   animation-delay: var(--ddelay, 0s);
 }
 
-/* E 布局:视频居首(砂金·戏浪) */
+/* E 布局:视频居首靠右(砂金·戏浪) */
 .detail--e .cover-tint { background: radial-gradient(70% 85% at 50% 40%, rgba(79, 171, 224, 0.12), transparent 72%); }
+/* 背景立绘放大并向左偏移:人脸让到左侧,右侧留给视频 */
+.detail--e .cover-bg {
+  background-size: 160% auto;
+  background-position: 80% 28%;
+}
 .detail--e .e-head { margin-bottom: clamp(28px, 4vw, 48px); }
 .detail--e .player-frame {
   max-width: 720px;              /* 与其他章节栏内视频尺寸一致 */
   margin-top: 0;
+  margin-left: auto;             /* 靠右,不挡立绘人脸 */
 }
 .detail--e .e-bottom {
   display: grid;
