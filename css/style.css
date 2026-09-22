@@ -1112,9 +1112,13 @@ body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
   animation-delay: var(--ddelay, 0s);
 }
 
-/* E 布局:视频居首的宽银幕(砂金·戏浪) */
+/* E 布局:视频居首(砂金·戏浪) */
 .detail--e .cover-tint { background: radial-gradient(70% 85% at 50% 40%, rgba(79, 171, 224, 0.12), transparent 72%); }
 .detail--e .e-head { margin-bottom: clamp(28px, 4vw, 48px); }
+.detail--e .player-frame {
+  max-width: 720px;              /* 与其他章节栏内视频尺寸一致 */
+  margin-top: 0;
+}
 .detail--e .e-bottom {
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
