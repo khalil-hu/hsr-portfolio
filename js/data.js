@@ -29,7 +29,7 @@ const TRACKS = [
     element: "虚数",
     accent: "#46c894",
     stage: "第一首",
-    growth: "从认识铜管开始",
+    growth: "第一次听清铜管",
     layout: "a",
     quote: "「所有,或者一无所有。」",
     song: {
@@ -52,7 +52,7 @@ const TRACKS = [
     element: "物理",
     accent: "#2fb8a0",
     stage: "第二首",
-    growth: "开始自己造音色",
+    growth: "在合成器里翻出古筝",
     layout: "c",
     quote: "「执此一签，关照诸天」",
     song: {
@@ -75,7 +75,7 @@ const TRACKS = [
     element: "冰",
     accent: "#f0a8c8",
     stage: "第三首",
-    growth: "敢铺十九轨合成器",
+    growth: "利用合成器音色",
     layout: "d",
     quote: "「明天见」",
     song: {
@@ -98,7 +98,7 @@ const TRACKS = [
     element: "冰",
     accent: "#e04a4a",
     stage: "第四首",
-    growth: "学会用插件还原",
+    growth: "从堆音色,到用插件",
     layout: "b",
     quote: "「晚安,全世界无眠。」",
     song: {
@@ -121,7 +121,7 @@ const TRACKS = [
     element: "量子",
     accent: "#4fabe0",
     stage: "最新作",
-    growth: "开始混音了",
+    growth: "第一次动混音",
     layout: "e",
     quote: "「All in！敬炽烈一夏」",
     song: {
