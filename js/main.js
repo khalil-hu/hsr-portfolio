@@ -70,6 +70,7 @@
     return `
       <div class="notes">
         <h3>扒带手记</h3>
+        <p class="notes-stage">${t.stage}:${t.growth}</p>
         ${t.notes.map((p) => `<p>${p}</p>`).join("")}
       </div>`;
   }
@@ -87,13 +88,15 @@
     grid.innerHTML = TRACKS.map(
       (t) => `
       <a class="char-card clip" href="#char-${t.id}" data-char="${t.id}" style="--cc:${t.accent}">
-        <img src="assets/characters/web/${t.id}-portrait.png" alt="${t.char} 立绘" loading="lazy">
+        <img src="assets/characters/web/${t.id}-portrait.jpg" alt="${t.char} 立绘" loading="lazy">
         <div class="card-scrim"></div>
+        <span class="card-stage">${t.stage}</span>
         <p class="card-quote">${t.quote}</p>
         <div class="card-info">
           <span class="card-path">${t.path} · ${t.element}</span>
           <h3 class="card-name">${t.char}</h3>
           <p class="card-song">《${t.song.title}》</p>
+          <span class="card-enter"><i aria-hidden="true"></i>进入档案</span>
         </div>
       </a>`
     ).join("");
@@ -101,73 +104,86 @@
 
   function buildDetails() {
     const host = document.getElementById("details");
-    const [a, b, c, d, e] = TRACKS;
-    host.innerHTML = `
-      <section class="detail detail--a" id="char-${a.id}" data-char="${a.id}" data-wm="${a.char}">
+    // 按 TRACKS 顺序(时间线)渲染;布局只看每首歌的 layout 字段
+    host.innerHTML = TRACKS.map(renderSection).join("");
+  }
+
+  function renderSection(t) {
+    const head = charHead(t);
+    const stats = statGrid(t.song, "stat-grid");
+    const video = videoBlock(t);
+    const notes = notesBlock(t);
+    switch (t.layout) {
+      case "a":
+        return `
+      <section class="detail detail--a" id="char-${t.id}" data-char="${t.id}" data-wm="${t.char}">
         <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${a.id}-landscape.png')"></div>
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${t.id}-landscape.jpg')"></div>
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="gold-dust" aria-hidden="true"></div>
           <div class="suit-strip" aria-hidden="true"><span>♠</span><span>♥</span><span>♦</span><span>♣</span></div>
           <div class="cover-inner">
             <div>
-              <div class="rv">${charHead(a)}</div>
-              <div class="rv">${notesBlock(a)}</div>
+              <div class="rv">${head}</div>
+              <div class="rv">${notes}</div>
             </div>
             <div>
-              <div class="rv">${statGrid(a.song, "stat-grid")}</div>
-              <div class="rv">${videoBlock(a)}</div>
+              <div class="rv">${stats}</div>
+              <div class="rv">${video}</div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="detail detail--b" id="char-${b.id}" data-char="${b.id}" data-wm="${b.char}">
+      </section>`;
+      case "b":
+        return `
+      <section class="detail detail--b" id="char-${t.id}" data-char="${t.id}" data-wm="${t.char}">
         <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${b.id}-landscape.png')"></div>
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${t.id}-landscape.jpg')"></div>
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="moon-big" aria-hidden="true"></div>
           <div class="rain" aria-hidden="true"></div>
           <div class="cover-inner">
             <div>
-              <div class="rv">${charHead(b, "", false)}</div>
-              <div class="rv">${notesBlock(b)}</div>
+              <div class="rv">${charHead(t, "", false)}</div>
+              <div class="rv">${notes}</div>
             </div>
             <div>
-              <div class="rv">${statGrid(b.song, "stat-grid")}</div>
-              <div class="rv">${videoBlock(b)}</div>
+              <div class="rv">${stats}</div>
+              <div class="rv">${video}</div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="detail detail--c" id="char-${c.id}" data-char="${c.id}" data-wm="${c.char}">
+      </section>`;
+      case "c":
+        return `
+      <section class="detail detail--c" id="char-${t.id}" data-char="${t.id}" data-wm="${t.char}">
         <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${c.id}-landscape.png')"></div>
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${t.id}-landscape.jpg')"></div>
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="astrolabe" aria-hidden="true"><i></i></div>
           <div class="runes" aria-hidden="true"></div>
           <div class="cover-inner">
-            <div class="rv">${charHead(c, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
-            <div class="rv">${statGrid(c.song, "c-statstrip")}</div>
+            <div class="rv">${charHead(t, `<span class="tri-field" aria-hidden="true"><i></i><i></i><i></i></span>`)}</div>
+            <div class="rv">${statGrid(t.song, "c-statstrip")}</div>
             <div class="c-body">
               <div>
-                <div class="rv">${videoBlock(c)}</div>
+                <div class="rv">${video}</div>
               </div>
               <div>
-                <div class="rv">${notesBlock(c)}</div>
+                <div class="rv">${notes}</div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="detail detail--d" id="char-${d.id}" data-char="${d.id}" data-wm="${d.char}">
+      </section>`;
+      case "d":
+        return `
+      <section class="detail detail--d" id="char-${t.id}" data-char="${t.id}" data-wm="${t.char}">
         <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${d.id}-landscape.png')"></div>
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${t.id}-landscape.jpg')"></div>
           <div class="cover-tint" aria-hidden="true"></div>
           <div class="cover-shade"></div>
           <div class="star-motes" aria-hidden="true"></div>
@@ -178,11 +194,11 @@
           <div class="ripple r2" aria-hidden="true"></div>
           <div class="ripple r3" aria-hidden="true"></div>
           <div class="cover-inner">
-            <div class="d-head rv">${charHead(d, "")}</div>
+            <div class="d-head rv">${head}</div>
             <div class="d-triptych">
               <div class="rv">
                 <div class="d-stat-tiles">
-                  ${statItems(d.song)
+                  ${statItems(t.song)
                     .map(
                       ([k, v]) =>
                         `<div class="stat"><dt>${k}</dt><dd>${v}</dd></div>`
@@ -190,29 +206,32 @@
                     .join("")}
                 </div>
               </div>
-              <div class="rv">${videoBlock(d)}</div>
-              <div class="rv">${notesBlock(d)}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="detail detail--e" id="char-${e.id}" data-char="${e.id}" data-wm="${e.char}">
-        <div class="cover">
-          <div class="cover-bg" style="background-image:url('assets/characters/web/${e.id}-portrait.png')"></div>
-          <div class="cover-tint" aria-hidden="true"></div>
-          <div class="cover-shade"></div>
-          <div class="bubbles" aria-hidden="true"></div>
-          <div class="cover-inner">
-            <div class="e-head rv">${charHead(e, "")}</div>
-            <div class="rv">${videoBlock(e)}</div>
-            <div class="e-bottom">
-              <div class="rv">${statGrid(e.song, "stat-grid")}</div>
-              <div class="rv">${notesBlock(e)}</div>
+              <div class="rv">${video}</div>
+              <div class="rv">${notes}</div>
             </div>
           </div>
         </div>
       </section>`;
+      case "e":
+        return `
+      <section class="detail detail--e" id="char-${t.id}" data-char="${t.id}" data-wm="${t.char}">
+        <div class="cover">
+          <div class="cover-bg" style="background-image:url('assets/characters/web/${t.id}-portrait.jpg')"></div>
+          <div class="cover-tint" aria-hidden="true"></div>
+          <div class="cover-shade"></div>
+          <div class="bubbles" aria-hidden="true"></div>
+          <div class="cover-inner">
+            <div class="e-head rv">${head}</div>
+            <div class="rv">${video}</div>
+            <div class="e-bottom">
+              <div class="rv">${stats}</div>
+              <div class="rv">${notes}</div>
+            </div>
+          </div>
+        </div>
+      </section>`;
+    }
+    return "";
   }
 
   /* ---------- 星尘 ---------- */

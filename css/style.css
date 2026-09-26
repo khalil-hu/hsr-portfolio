@@ -405,6 +405,14 @@ body.past-hero .cursor-glow { opacity: 0; }
   margin-bottom: 14px;
   color: var(--accent, var(--gold-bright));
 }
+/* 成长批注:这一首当时学到什么 */
+.notes-stage {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--accent, var(--gold-bright));
+  margin: -6px 0 14px;
+  opacity: 0.85;
+}
 .notes p {
   color: var(--text-dim);
   max-width: 68ch;
@@ -725,7 +733,7 @@ body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
 /* 悬停浮现角色台词 */
 .char-card .card-quote {
   position: absolute;
-  left: 22px; right: 22px; top: 16px;
+  left: 22px; right: 96px; top: 16px;   /* 右侧留出成长角标位 */
   z-index: 2;
   font-family: var(--font-display);
   font-size: 14px;
@@ -738,6 +746,39 @@ body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
   pointer-events: none;
 }
 .char-card:hover .card-quote { opacity: 1; transform: translateY(0); }
+/* 成长阶段角标(第一首/最新作) */
+.char-card .card-stage {
+  position: absolute;
+  top: 14px; right: 14px;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--cc, var(--gold-bright));
+  border: 1px solid rgba(201, 168, 106, 0.35);
+  background: rgba(7, 9, 15, 0.55);
+  padding: 4px 10px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+/* 进入提示:静止态也有行动暗示 */
+.char-card .card-enter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.char-card:hover .card-enter { opacity: 1; }
+.char-card .card-enter i {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex: none;
+}
 /* 聚光边框:跟随光标 */
 .char-card::before {
   content: "";
@@ -1260,7 +1301,14 @@ body.entered .hero-char:nth-of-type(5) { animation-delay: 0.83s; }
 @media (max-width: 640px) {
   .roster-grid { grid-template-columns: 1fr; }
   .hero-copy { max-width: 100%; }
-  .hero-bg .hero-char { filter: blur(2px) brightness(0.26); }
+  .hero-bg .hero-char { filter: blur(3px) brightness(0.18); }
+  /* 手机:竖向渐暗,保证标题区对比度,不与人脸打架 */
+  .hero-bg::after {
+    background: linear-gradient(180deg,
+      rgba(7, 9, 15, 0.94) 0%,
+      rgba(7, 9, 15, 0.68) 40%,
+      rgba(7, 9, 15, 0.42) 100%);
+  }
   .nav-links { gap: 18px; }
 }
 
